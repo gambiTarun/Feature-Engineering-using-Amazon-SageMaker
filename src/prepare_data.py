@@ -23,13 +23,12 @@ from pathlib import Path
 import time
 import boto3
 
-subprocess.check_call([sys.executable, "-m", "conda", "install", "-c", "pytorch", "pytorch==1.6.0", "-y"])
+subprocess.check_call([sys.executable, "-m", "pip", "install", "torch==1.6.0"])
 
 subprocess.check_call([sys.executable, "-m", "pip", "install", "transformers==3.5.1"])
 from transformers import RobertaTokenizer
 
-if __name__ == "__main__":
-    os.system('pip install sagemaker==2.35.0')
+subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'sagemaker==2.35.0'])
 import sagemaker
 
 from sagemaker.session import Session
@@ -185,9 +184,9 @@ def convert_to_bert_input_ids(review, max_seq_length):
     encode_plus = tokenizer.encode_plus(
           review,
           add_special_tokens=True,
-          ### BEGIN SOLUTION - DO NOT delete this comment for grading purposes
-          max_length=max_seq_length, # Replace None
-          ### END SOLUTION - DO NOT delete this comment for grading purposes
+          
+          max_length=max_seq_length,
+          
           return_token_type_ids=False,
           padding='max_length',
           return_attention_mask=True,
